@@ -1,5 +1,6 @@
 package com.pimmpo.core;
 
+import com.pimmpo.core.util.Command;
 import com.pimmpo.core.util.io.IOBMO;
 import org.apache.log4j.Logger;
 
@@ -12,9 +13,7 @@ public class VMBMO {
 
     public static final int MEMORY_SIZE = 256;
 
-    private int AX = 0;
-    private int IP = 0;
-    private boolean overflow = false;
+    private CPU cpu = new CPU();
     private char memory[];
 
     /**
@@ -30,6 +29,42 @@ public class VMBMO {
         memory = IOBMO.memoryReadFromFile(filename);
 
         log.debug("(VMBMO)Memory successfully read");
+    }
+
+    /**
+     *  Метод для запуска виртуальной машины
+     */
+    public void run() throws Exception {
+        initDefaultValues();
+
+        boolean runVM = true;
+        char instruction,   //stores current instruction
+                operand;    //stores current operand
+
+        while (runVM == true && cpu.getIP() < MEMORY_SIZE) {
+            instruction = memory[cpu.incramentIP()];
+            operand = memory[cpu.incramentIP()];
+
+            switch (instruction) {
+                case (Command.END): {
+                    runVM = false;
+                    break;
+                } case (Command.DWN): {
+                    cpu.installAX(memory[operand], memory[operand + 1]);
+                    break;
+                }
+                default: {
+                    runVM = false;
+                    log.error("(VMBMO) don't understand command");
+                    break;
+                }
+            }
+            log.info("registers: AX = " + cpu.getAX() + " IP = " + cpu.getIP() + " instruction = " + (int)instruction);
+        }
+    }
+
+    private void initDefaultValues() {
+        cpu.initDefaultValues();;
     }
 
 }
