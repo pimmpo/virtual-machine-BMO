@@ -123,7 +123,6 @@ public class CPU {
         } else {
             bitsSubtracted.setBit(0, (byte) 1);
         }
-        //bitsSubtracted.setBit(0,(byte)0); //TODO: зачем это необходимо?
 
         if(bitsAX.getBit(0) != bitsSubtracted.getBit(0)) {
             int choose = biggerByModule(bitsAX, bitsSubtracted);
@@ -167,7 +166,12 @@ public class CPU {
      */
     private static int biggerByModule(BitBMO AX, BitBMO operand) throws Exception {
         //Start with number 1 because we don't compare signs
-        //todo проверку на одинаковый размер
+
+        if(AX.getSize() != operand.getSize()) {
+            log.error("(CPU)Вifferent size of variables");
+            throw new RuntimeException("(CPU)Вifferent size of variables");
+        }
+
         for(int i = 1; i < BITS_SIZE_AX; i++) {
             if(AX.getBit(i) > operand.getBit(i)) {
                 return 1;

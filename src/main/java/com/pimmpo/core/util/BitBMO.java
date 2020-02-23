@@ -100,4 +100,8 @@ public class BitBMO {
         }
         return sb.toString();
     }
+
+    public int getSize() {
+        return this.size;
+    }
 }
