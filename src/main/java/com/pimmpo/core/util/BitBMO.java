@@ -88,4 +88,16 @@ public class BitBMO {
             return bits[index];
         }
     }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < bits.length; i++) {
+            if(bits[i] == 1) {
+                sb.append("1");
+            } else {
+                sb.append("0");
+            }
+        }
+        return sb.toString();
+    }
 }

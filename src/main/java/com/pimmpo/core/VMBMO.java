@@ -1,5 +1,6 @@
 package com.pimmpo.core;
 
+import com.pimmpo.core.util.BitBMO;
 import com.pimmpo.core.util.Command;
 import com.pimmpo.core.util.io.IOBMO;
 import org.apache.log4j.Logger;
@@ -35,12 +36,12 @@ public class VMBMO {
      *  Метод для запуска виртуальной машины
      */
     public void run() throws Exception {
-        initDefaultValues();
+        initDefaultValues();    //Нужно при использование внутри веб-сервиса
 
         boolean runVM = true;
         char instruction,   //stores current instruction
                 operand;    //stores current operand
-
+        BitBMO bitsAX = new BitBMO(16, 0);
         while (runVM == true && cpu.getIP() < MEMORY_SIZE) {
             instruction = memory[cpu.incramentIP()];
             operand = memory[cpu.incramentIP()];
@@ -52,6 +53,12 @@ public class VMBMO {
                 } case (Command.DWN): {
                     cpu.installAX(memory[operand], memory[operand + 1]);
                     break;
+                } case (Command.ADD): {
+                    cpu.addingCell(memory[operand], memory[operand + 1]);
+                    break;
+                } case (Command.SUB): {
+                    cpu.subtractionCell(memory[operand], memory[operand + 1]);
+                    break;
                 }
                 default: {
                     runVM = false;
@@ -59,7 +66,9 @@ public class VMBMO {
                     break;
                 }
             }
-            log.info("registers: AX = " + cpu.getAX() + " IP = " + cpu.getIP() + " instruction = " + (int)instruction);
+            bitsAX.setBitsNumber(cpu.getAX());
+
+            log.debug("AX = " + bitsAX.toString() + " IP = " + cpu.getIP() + " instruction = " + (int)instruction);
         }
     }
 
