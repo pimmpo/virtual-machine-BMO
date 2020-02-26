@@ -71,6 +71,10 @@ public class BitBMO {
     }
 
     public void setBit(int index, byte choose) {
+        if(size <= index) {
+            throw new RuntimeException("(BitBMO)Index overflow");
+        }
+
         if (choose >  1 || choose < 0) {
             return;
         }
@@ -81,9 +85,9 @@ public class BitBMO {
         }
     }
 
-    public byte getBit(int index) throws Exception {
+    public byte getBit(int index) {
         if(index > bits.length || index < 0) {
-            throw new Exception("Failed index, working range [0," + bits.length + "]");
+            throw new RuntimeException("Failed index, working range [0," + bits.length + "]");
         } else {
             return bits[index];
         }

@@ -1,5 +1,8 @@
 package com.pimmpo.core;
 
+import com.pimmpo.core.hardware.CPU;
+import com.pimmpo.core.hardware.MemoryController;
+import com.pimmpo.core.model.MemoryObject;
 import com.pimmpo.core.util.BitBMO;
 import com.pimmpo.core.util.Command;
 import com.pimmpo.core.util.io.IOBMO;
@@ -14,8 +17,9 @@ public class VMBMO {
 
     public static final int MEMORY_SIZE = 256;
 
-    private CPU cpu = new CPU();
-    private char memory[];
+    private CPU cpu = new CPU();                                        //Центральный процессор виратульной машины
+    private MemoryController memoryController = new MemoryController(); //Контроллер для помощи взаимодействия с оперативной памятью
+    private char memory[];                                              //Оперативная память
 
     /**
      * Конуструктор для инициализации вирутальной машины и заполнения
@@ -47,17 +51,22 @@ public class VMBMO {
             operand = memory[cpu.incramentIP()];
 
             switch (instruction) {
-                case (Command.END): {
+                case (Command.END): {   //000
                     runVM = false;
                     break;
-                } case (Command.DWN): {
+                } case (Command.DWN): { //001
                     cpu.installAX(memory[operand], memory[operand + 1]);
                     break;
-                } case (Command.ADD): {
+                } case (Command.ADD): { //010
                     cpu.addingCell(memory[operand], memory[operand + 1]);
                     break;
-                } case (Command.SUB): {
+                } case (Command.SUB): { //011
                     cpu.subtractionCell(memory[operand], memory[operand + 1]);
+                    break;
+                } case (Command.UDWN): {//100
+                    MemoryObject object = memoryController.separationRegisterAX(cpu.getAX());
+                    memory[operand] = object.getUpper();
+                    memory[operand + 1] = object.getLower();
                     break;
                 }
                 default: {

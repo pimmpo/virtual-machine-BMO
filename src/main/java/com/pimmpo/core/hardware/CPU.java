@@ -1,10 +1,16 @@
-package com.pimmpo.core;
+package com.pimmpo.core.hardware;
 
 import com.pimmpo.core.util.BitBMO;
 import org.apache.log4j.Logger;
 
 /**
  * created by @author pimmpo on 23.02.2020.
+ *
+ * Класс реализующий центральный процессор виртуальной машины
+ *      Размер машинного слова 16 бит
+ *      Регистр AX сумматор (16 бит)
+ *      Регистр IP счетчик команд(16 бит)
+ *      Регистр overflow переполнения (8 бит)
  */
 public class CPU {
     private static final Logger log = Logger.getLogger(CPU.class);
