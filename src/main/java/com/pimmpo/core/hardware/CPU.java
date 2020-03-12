@@ -187,4 +187,20 @@ public class CPU {
         }
         return 0;
     }
+
+    /**
+     * Метод изменяющий регистр IP из операнда
+     */
+    public void absolutleJumpIP(final char operand) {
+        this.IP = (int)operand;
+    }
+
+    public void jumpAXequipZero(final char operand) {
+        BitBMO bitsZero = new BitBMO(16, 0);
+        BitBMO bitsNegativeZero = new BitBMO(16, "1000000000000000");
+
+        if(AX == bitsZero.toInteger() || AX == bitsNegativeZero.toInteger()) {
+            IP = (int)operand;
+        }
+    }
 }

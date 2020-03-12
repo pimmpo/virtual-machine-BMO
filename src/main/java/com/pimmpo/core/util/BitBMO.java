@@ -18,6 +18,12 @@ public class BitBMO {
         this.setBitsNumber(number);
     }
 
+    public BitBMO(int size, String number) {
+        this.size = size;
+        bits = new byte[size];
+        this.setBitsFromString(number);
+    }
+
     /**
      * Метод позволяющий устнавливать значение каждого бита
      * из String

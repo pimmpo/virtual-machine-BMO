@@ -68,6 +68,12 @@ public class VMBMO {
                     memory[operand] = object.getUpper();
                     memory[operand + 1] = object.getLower();
                     break;
+                } case (Command.JUMP): {
+                    cpu.absolutleJumpIP(operand);
+                    break;
+                } case (Command.EQZ): {
+                    cpu.jumpAXequipZero(operand);
+                    break;
                 }
                 default: {
                     runVM = false;
@@ -81,6 +87,10 @@ public class VMBMO {
         }
     }
 
+    /**
+     * Метод приводит все значения, кроме оперативной памяти к исходным значениям
+     * необходимо для корректной работы класса внутри веб приложения
+     */
     private void initDefaultValues() {
         cpu.initDefaultValues();;
     }
