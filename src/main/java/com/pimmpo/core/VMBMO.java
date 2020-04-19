@@ -37,6 +37,22 @@ public class VMBMO {
     }
 
     /**
+     * Конструктор для инициализации виртуальной машины внутри веб сервиса
+     */
+    public VMBMO() {
+        log.info("(VMBMO) virtual machine is BMO created!");
+        String[] input = new String[MEMORY_SIZE];
+
+        String memoryDefault = "00000000";
+        for(int i = 0; i < MEMORY_SIZE; i++) {
+            input[i] = memoryDefault;
+        }
+
+        memory = IOBMO.memoryReadFromText(input);
+
+    }
+
+    /**
      *  Метод для запуска виртуальной машины
      */
     public void run() throws Exception {
@@ -95,4 +111,19 @@ public class VMBMO {
         cpu.initDefaultValues();;
     }
 
+    public CPU getCpu() {
+        return cpu;
+    }
+
+    /**
+     * @return strMemory - array String memory in bin code
+     **/
+    public String[] getMemoryStep() {
+        String[] strMemory = new String[MEMORY_SIZE];
+        for(int i = 0; i < MEMORY_SIZE; i++) {
+            BitBMO bitBMO = new BitBMO(8, memory[i]); //todo refactoring
+            strMemory[i] = bitBMO.toString();
+        }
+        return strMemory;
+    }
 }

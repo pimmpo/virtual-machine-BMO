@@ -56,5 +56,18 @@ public class IOBMO {
         return memoryChars;
     }
 
+    /**
+     * Метод для записи информации в оперативную память из String
+     */
+    public static char[] memoryReadFromText(String[] input) {
+        char[] memoryResult = new char[VMBMO.MEMORY_SIZE];
+        BitBMO bitBMO = new BitBMO(8);
+        for(int i = 0; i < input.length; i++) {
+            bitBMO.setBitsFromString(input[i]);
+            memoryResult[i] = (char)bitBMO.toInteger();
+        }
+        return memoryResult;
+    }
+
 
 }
