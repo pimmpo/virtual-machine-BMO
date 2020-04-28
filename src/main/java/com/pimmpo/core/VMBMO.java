@@ -126,4 +126,11 @@ public class VMBMO {
         }
         return strMemory;
     }
+
+    /**
+     * Загрузка оперативной памяти в виртуальную машину с страницы браузера
+     */
+    public void downloadMemoryFromPage(String[] memoryCells) {
+        memory = IOBMO.memoryReadFromText(memoryCells);
+    }
 }
