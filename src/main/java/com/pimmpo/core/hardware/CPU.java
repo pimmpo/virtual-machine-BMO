@@ -203,4 +203,9 @@ public class CPU {
             IP = (int)operand;
         }
     }
+
+    public String getAXtoBin() {
+        BitBMO ax = new BitBMO(16, this.AX);
+        return ax.toString();
+    }
 }
