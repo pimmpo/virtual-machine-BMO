@@ -133,4 +133,9 @@ public class VMBMO {
     public void downloadMemoryFromPage(String[] memoryCells) {
         memory = IOBMO.memoryReadFromText(memoryCells);
     }
+
+    public void downloadMemoryFromPage(String strCells) {
+        String[] cells = strCells.split("\r\n");
+        memory = IOBMO.memoryReadFromText(cells);
+    }
 }
