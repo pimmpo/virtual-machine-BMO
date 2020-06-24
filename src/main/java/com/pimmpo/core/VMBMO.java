@@ -90,6 +90,12 @@ public class VMBMO {
                 } case (Command.EQZ): {
                     cpu.jumpAXequipZero(operand);
                     break;
+                } case (Command.BIGGER): {
+                    cpu.jumpIfAXbiggerZero(operand);
+                    break;
+                } case (Command.LOWER): {
+                    cpu.jumpIfAXlowerZero(operand);
+                    break;
                 }
                 default: {
                     runVM = false;

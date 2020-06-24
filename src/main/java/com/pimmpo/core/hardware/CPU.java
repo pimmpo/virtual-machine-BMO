@@ -204,6 +204,22 @@ public class CPU {
         }
     }
 
+    public void jumpIfAXbiggerZero(final char operand) {
+        BitBMO bitsZero = new BitBMO(16, 0);
+
+        if(AX > bitsZero.toInteger()) {
+            IP = (int)operand;
+        }
+    }
+
+    public void jumpIfAXlowerZero(final char operand) {
+        BitBMO bitsZero = new BitBMO(16, 0);
+
+        if(AX < bitsZero.toInteger()) {
+            IP = (int)operand;
+        }
+    }
+
     public String getAXtoBin() {
         BitBMO ax = new BitBMO(16, this.AX);
         return ax.toString();

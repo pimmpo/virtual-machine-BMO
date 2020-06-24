@@ -8,4 +8,6 @@ public class Command {
     public static final char UDWN = 4;
     public static final char JUMP = 5;  //00000101
     public static final char EQZ =  6;
+    public static final char BIGGER = 7;
+    public static final char LOWER = 8;
 }
